@@ -38,3 +38,21 @@ pattern = '''-- TARGET: add context.other_something identifier to your cards'''
 position = "before"
 payload = '''if _card.playing_card then other_key = 'other_playing_card' end'''
 match_indent=true
+
+# fix scaling jokers
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''if context.cardarea == G.jokers then'''
+position = "at"
+payload = '''if true then -- if context.cardarea == G.jokers then | Breaks MagicTrick'''
+match_indent=true
+
+# fix food jokers
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''G.jokers:remove_card(self)'''
+position = "at"
+payload = '''self.cardarea:remove_card(self) -- G.jokers:remove_card(self) | Breaks MagicTrick'''
+match_indent=true
