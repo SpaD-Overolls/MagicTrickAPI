@@ -1,0 +1,40 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = '''function SMODS.calculate_context(context, return_table)'''
+position = "at"
+payload = '''
+function SMODS.calculate_context(context, return_table)
+	MagicTrick.calculate_context(context, return_table)
+end
+function SMODS.calculate_context_Ref(context, return_table)'''
+match_indent=true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''local areas = SMODS.get_card_areas('jokers')'''
+position = "at"
+payload = '''local areas = MagicTrick.get_all_areas()'''
+match_indent=true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = '''for _, _area in ipairs(SMODS.get_card_areas('jokers')) do'''
+position = "at"
+payload = '''for _, _area in ipairs(MagicTrick.get_all_areas()) do'''
+match_indent=true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = '''-- TARGET: add context.other_something identifier to your cards'''
+position = "before"
+payload = '''if _card.playing_card then other_key = 'other_playing_card' end'''
+match_indent=true

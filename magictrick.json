@@ -1,0 +1,10 @@
+{
+	"id": "MagicTrickAPI",
+	"name": "MagicTrickAPI",
+	"display_name": "MagicTrickAPI",
+	"author": ["SpaD_Overolls"],
+	"description": "Calculation API for unusual interactions.",
+	"prefix": "mtrick",
+	"main_file": "magictrick.lua",
+	"version": "0.0.1"
+}
